@@ -69,7 +69,7 @@ if question:
     # Append user's question to messages  
     st.session_state.messages.append({"role": "user", "content": question})  
     #query = generate_embeddings(str(question))
-    context = faiss_search(question)
+    context = faiss_search(question) #faiss search title and give indices call another df and create temp faiss index
     resp = generate_ai_response(context, question)
 
     # Append assistant's response to messages  

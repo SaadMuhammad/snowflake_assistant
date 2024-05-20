@@ -80,7 +80,7 @@ def generate_ai_response(data, question):
   #prompt = f"""Context: here's the data for context {data}, if a title matches do provide the relevant web link to user even if content doesn't have complete answer
 #Now this is the user's question: Question: {question}"""
 
-  prompt = f"You are a snowflake assistant support specialist. I will provide you with context and question, \
+  prompt = f"""You are a snowflake assistant support specialist. I will provide you with context and question, \
              The question contain a semantic answer searched from documents and related matches.\
              sometime context don't have a semantic answer only related matches. So your role is to analyze the context and user question and determine \
              if there is any useful information in context that can be used answer user question.\
@@ -92,7 +92,7 @@ def generate_ai_response(data, question):
              'I don't find similar semantic answer' in response to user question\
               if you don't find answer and simply refer him to contact snowflake team
               Context: here's the data for context {data}, if a title matches do provide the relevant web link to user even if content doesn't have complete answer\
-             Now this is the user's question: Question: {question}"
+             Now this is the user's question: Question: {question}"""
 
   for event in api.stream(
       "snowflake/snowflake-arctic-instruct",

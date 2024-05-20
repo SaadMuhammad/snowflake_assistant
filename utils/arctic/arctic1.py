@@ -103,6 +103,6 @@ def generate_ai_response(data, question):
           "top_p": 0.9,  # Adjust top_p as needed
       },
   ): # Process and display the streaming data
-    if event[0] == 'event' and event[1] == EventType.OUTPUT:
-        data = event[2]
-        yield str(data)
+    #if event[0] == 'event' and event[1] == EventType.OUTPUT:
+        #data = event[2]
+    yield str(event)

@@ -9,7 +9,7 @@ from utils.logo import add_logo
 st.set_page_config(page_title="SnowFlake Assitant", page_icon="❄️🔍", layout="wide")
 
 
-logo_data = add_logo()
+"""logo_data = add_logo()
 
 st.markdown(
     f"""
@@ -23,4 +23,4 @@ st.markdown(
     </style>
     """,
     unsafe_allow_html=True,
-)
+)"""

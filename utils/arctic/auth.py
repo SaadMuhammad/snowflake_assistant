@@ -63,8 +63,8 @@ def get_temp_info(index, df):
     item = df.loc[index]
 
     # Check for high New_Token_Count and return empty text
-    if item['New_Token_Count'] > 2000:
-        return {'Title': item['Title'], 'Text': "empty"}
+    #if item['New_Token_Count'] > 2000:
+        #return {'Title': item['Title'], 'Text': "empty"}
 
     # Initialize text with the item's 'Text'
     text = item['Text']
@@ -116,7 +116,7 @@ def faiss_search(query):
     embed = generate_embeddings_arctic(query)
     ques = np.array(embed).astype('float32')
     ques = ques.reshape(1, -1)
-    distances, indices = index_temp.search(ques, 2)
+    distances, indices = index_temp.search(ques, 1)
 
     result = {}
     for i in indices[0]:

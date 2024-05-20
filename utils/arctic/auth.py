@@ -6,23 +6,31 @@ import tiktoken
 import faiss
 from sentence_transformers import SentenceTransformer
 from tenacity import retry, wait_random_exponential, stop_after_attempt 
+import zipfile
 
 #read index title
-index_snwflk_title = faiss.read_index('/content/index_snwflk_title.index')
+index_snwflk_title = faiss.read_index(r'/new_data/index_snwflk_title.index')
 
 #read json title
-with open('/content/snwflk_title_json.json', 'r', encoding='utf-8') as file:
-    input_data_title = json.load(file)
+#with open('/content/snwflk_title_json.json', 'r', encoding='utf-8') as file:
+    #input_data_title = json.load(file)
+# Read json title  
+with zipfile.ZipFile(r'/new_data/snwflk_title_json.zip', 'r') as z:  
+    with z.open('snwflk_chunksplits.json') as f:  
+        input_data_title = json.load(f)
 
 #read text json
-df_text = pd.read_json('snwflk_chunksplits.json')
+df_text = pd.read_json(r'/new_data/snwflk_chunksplits.zip', compression='zip') 
     
 #read text vector embeddings
-files = [rf'/content/snwflk_chunksplits_vectorp{i}.json' for i in range(1, 5)]  
+#files = [rf'/content/snwflk_chunksplits_vectorp{i}.json' for i in range(1, 5)]  
 # Read each file into a DataFrame and store all DataFrames in a list  
-dfss = [pd.read_json(file) for file in files]  
+#dfss = [pd.read_json(file) for file in files]  
 # Concatenate all DataFrames into a single DataFrame  
-df_vector = pd.concat(dfss, ignore_index=True)  
+#df_vector = pd.concat(dfss, ignore_index=True)  
+files = [r'/new_data/snwflk_chunksplits_vectorp{}.zip'.format(i) for i in range(1, 5)]  
+dfss = [pd.read_json(f, compression='zip') for f in files]  
+df_vector = pd.concat(dfss, ignore_index=True)
 
 #read index
 #index_snwflk = faiss.read_index('/content/index_snwflk.index')

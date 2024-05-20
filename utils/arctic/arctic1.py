@@ -33,7 +33,7 @@ api = replicate.Client(api_token=os.environ["REPLICATE_API_TOKEN"])
 #https://huggingface.co/Snowflake/snowflake-arctic-instruct
 
 
-def generate_ai_response(data, question: str):
+"""def generate_ai_response(data, question: str):
     client = Snowflake_arctic(
         )
     response = client.generate(
@@ -53,7 +53,7 @@ def generate_ai_response(data, question: str):
         {"role": "user", "content": f"Context: here's the data for context {data}, if a title matches do provide the relevant web link to user even if content doesn't have complete answer\
          Now this is the user's question: Question: {question}"}
     ], )
-    return response
+    return response"""
 
 ### add replicate here
 #input = {
@@ -65,3 +65,29 @@ def generate_ai_response(data, question: str):
 #    "snowflake/snowflake-arctic-instruct",
 #    input=input
 #)
+
+def generate_ai_response(data, question):
+  """
+  Generates a streaming AI response using the Replicate API.
+
+  Args:
+      data: Context data for the assistant.
+      question: User's question.
+
+  Returns:
+      A generator object that yields the streaming response from the model.
+  """
+  prompt = f"""Context: here's the data for context {data}, if a title matches do provide the relevant web link to user even if content doesn't have complete answer
+Now this is the user's question: Question: {question}"""
+
+  for event in replicate.stream(
+      "snowflake/snowflake-arctic-instruct",
+      input={
+          "prompt": prompt,
+          "prompt_template": "{prompt}",
+          "temperature": 0.2,  # Adjust temperature as needed
+          "top_p": 0.9,  # Adjust top_p as needed
+      },
+  ):
+    # Process and display the streaming data
+    yield str(event)

@@ -80,6 +80,7 @@ def get_temp_info(index, df):
         text = text + " " + df.loc[index + 1, 'Text']
 
     return {
+        'URL': item['URL'],
         'Title': item['Title'],
         'Text': text,
     }

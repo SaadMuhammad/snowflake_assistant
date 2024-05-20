@@ -62,6 +62,10 @@ def get_temp_info(index, df):
     # Get the item
     item = df.loc[index]
 
+    # Check for high New_Token_Count and return empty text
+    if item['New_Token_Count'] > 2000:
+        return {'Title': item['Title'], 'Text': "empty"}
+
     # Initialize text with the item's 'Text'
     text = item['Text']
 

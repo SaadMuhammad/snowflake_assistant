@@ -102,6 +102,5 @@ def generate_ai_response(data, question):
           "temperature": 0.2,  # Adjust temperature as needed
           "top_p": 0.9,  # Adjust top_p as needed
       },
-  ):
-    # Process and display the streaming data
-    yield str(event)
+  ): # Process and display the streaming data
+        return str(event)

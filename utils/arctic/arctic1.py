@@ -80,7 +80,7 @@ def generate_ai_response(data, question):
   prompt = f"""Context: here's the data for context {data}, if a title matches do provide the relevant web link to user even if content doesn't have complete answer
 Now this is the user's question: Question: {question}"""
 
-  for event in replicate.stream(
+  for event in api.stream(
       "snowflake/snowflake-arctic-instruct",
       input={
           "prompt": prompt,

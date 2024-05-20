@@ -67,20 +67,8 @@ api = replicate.Client(api_token=os.environ["REPLICATE_API_TOKEN"])
 #)
 
 def generate_ai_response(data, question):
-  """
-  Generates a streaming AI response using the Replicate API.
-
-  Args:
-      data: Context data for the assistant.
-      question: User's question.
-
-  Returns:
-      A generator object that yields the streaming response from the model.
-  """
-  #prompt = f"""Context: here's the data for context {data}, if a title matches do provide the relevant web link to user even if content doesn't have complete answer
-#Now this is the user's question: Question: {question}"""
-
-  prompt = f"""You are a snowflake assistant support specialist. I will provide you with context and question, \
+    
+    prompt = f"""You are a snowflake assistant support specialist. I will provide you with context and question, \
              The question contain a semantic answer searched from documents and related matches.\
              sometime context don't have a semantic answer only related matches. So your role is to analyze the context and user question and determine \
              if there is any useful information in context that can be used answer user question.\
@@ -94,15 +82,16 @@ def generate_ai_response(data, question):
               Context: here's the data for context {data}, if a title matches do provide the relevant web link to user even if content doesn't have complete answer\
              Now this is the user's question: Question: {question}"""
 
-  for event in api.stream(
-      "snowflake/snowflake-arctic-instruct",
-      input={
-          "prompt": prompt,
-          "prompt_template": "{prompt}",
-          "temperature": 0.2,  # Adjust temperature as needed
-          "top_p": 0.9,  # Adjust top_p as needed
-      },
-  ): # Process and display the streaming data
-    #if event[0] == 'event' and event[1] == EventType.OUTPUT:
-        #data = event[2]
-    yield str(event)
+    for event in api.stream(
+        "snowflake/snowflake-arctic-instruct",
+        input={
+            "prompt": prompt,
+            #"prompt_template": "{prompt}",
+            "temperature": 0.2,  # Adjust temperature as needed
+            "top_p": 0.9,  # Adjust top_p as needed
+            },
+        ):
+        yield str(event)
+
+        #prompt = f"""Context: here's the data for context {data}, if a title matches do provide the relevant web link to user even if content doesn't have complete answer
+#Now this is the user's question: Question: {question}"""

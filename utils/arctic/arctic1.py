@@ -77,22 +77,22 @@ def generate_ai_response(data, question):
   Returns:
       A generator object that yields the streaming response from the model.
   """
-  prompt = f"""Context: here's the data for context {data}, if a title matches do provide the relevant web link to user even if content doesn't have complete answer
-Now this is the user's question: Question: {question}"""
+  #prompt = f"""Context: here's the data for context {data}, if a title matches do provide the relevant web link to user even if content doesn't have complete answer
+#Now this is the user's question: Question: {question}"""
 
-prompt = f"You are a snowflake assistant support specialist. I will provide you with context and question, \
-         The question contain a semantic answer searched from documents and related matches.\
-         sometime context don't have a semantic answer only related matches. So your role is to analyze the context and user question and determine \
-         if there is any useful information in context that can be used answer user question.\
-         if yes, answer user question cleary and as helpfully as possible and extend asnwer where needed but don't add anythong from outside the given context data. \
-         if the question and context don't make sense simply answer this is out of the documentation scope, please reach out to \
-         SnowFlake team. Lastly, when you find a relevant answer in context then always provide the website link from relevant match for user \
-         to further read and verify. If there are multiple correct answers in related matches,\
-         then combine the answer and share all relevant links. Ypu will never write 'based on given context' or 'based on a given related match number' or \
-         'I don't find similar semantic answer' in response to user question\
-          if you don't find answer and simply refer him to contact snowflake team
-          Context: here's the data for context {data}, if a title matches do provide the relevant web link to user even if content doesn't have complete answer\
-         Now this is the user's question: Question: {question}"
+  prompt = f"You are a snowflake assistant support specialist. I will provide you with context and question, \
+             The question contain a semantic answer searched from documents and related matches.\
+             sometime context don't have a semantic answer only related matches. So your role is to analyze the context and user question and determine \
+             if there is any useful information in context that can be used answer user question.\
+             if yes, answer user question cleary and as helpfully as possible and extend asnwer where needed but don't add anythong from outside the given context data. \
+             if the question and context don't make sense simply answer this is out of the documentation scope, please reach out to \
+             SnowFlake team. Lastly, when you find a relevant answer in context then always provide the website link from relevant match for user \
+             to further read and verify. If there are multiple correct answers in related matches,\
+             then combine the answer and share all relevant links. Ypu will never write 'based on given context' or 'based on a given related match number' or \
+             'I don't find similar semantic answer' in response to user question\
+              if you don't find answer and simply refer him to contact snowflake team
+              Context: here's the data for context {data}, if a title matches do provide the relevant web link to user even if content doesn't have complete answer\
+             Now this is the user's question: Question: {question}"
 
   for event in api.stream(
       "snowflake/snowflake-arctic-instruct",

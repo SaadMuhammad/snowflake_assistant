@@ -103,4 +103,4 @@ def generate_ai_response(data, question):
           "top_p": 0.9,  # Adjust top_p as needed
       },
   ): # Process and display the streaming data
-        return str(event)
+        return event

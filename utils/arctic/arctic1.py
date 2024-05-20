@@ -1,11 +1,13 @@
 import json
-import os  
+import replicate
+import streamlit as st
+import os
 #add article model and related models
-import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
-from deepspeed.linear.config import QuantizationConfig
+#import torch
+#from transformers import AutoModelForCausalLM, AutoTokenizer
+#from deepspeed.linear.config import QuantizationConfig
 
-tokenizer = AutoTokenizer.from_pretrained(
+"""tokenizer = AutoTokenizer.from_pretrained(
     "Snowflake/snowflake-arctic-instruct",
     trust_remote_code=True
 )
@@ -18,7 +20,10 @@ model = AutoModelForCausalLM.from_pretrained(
     device_map="auto",
     ds_quantization_config=quant_config,
     max_memory={i: "150GiB" for i in range(8)},
-    torch_dtype=torch.bfloat16)
+    torch_dtype=torch.bfloat16)"""
+
+os.environ["REPLICATE_API_TOKEN"] = "".join(elem for elem in st.secrets["REPLICATE_API_TOKEN"])
+api = replicate.Client(api_token=os.environ["REPLICATE_API_TOKEN"])
 
 #messages = [{"role": "user", "content": content}]
 #input_ids = tokenizer.apply_chat_template(messages, add_generation_prompt=True, return_tensors="pt").to("cuda")
@@ -49,3 +54,14 @@ def generate_ai_response(data, question: str):
          Now this is the user's question: Question: {question}"}
     ], )
     return response
+
+### add replicate here
+#input = {
+#    "prompt": f"{user_question}",
+#    "temperature": 0.2
+#}
+
+#output = api.run(
+#    "snowflake/snowflake-arctic-instruct",
+#    input=input
+#)

@@ -1,4 +1,7 @@
-matplotlib
-seaborn
-streamlit
-replicate
+streamlit==1.32.2
+faiss-cpu==1.7.4
+sentence-transformers==2.7.0
+tenacity==8.2.2
+tiktoken==0.5.1
+numpy==1.24.2
+pandas==1.5.3

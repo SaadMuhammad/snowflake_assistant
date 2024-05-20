@@ -5,3 +5,4 @@ tenacity==8.2.2
 tiktoken==0.5.1
 numpy==1.24.2
 pandas==1.5.3
+replicate==0.26.0

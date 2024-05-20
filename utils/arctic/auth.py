@@ -16,7 +16,7 @@ index_snwflk_title = faiss.read_index(r'./new_data/index_snwflk_title.index')
     #input_data_title = json.load(file)
 # Read json title  
 with zipfile.ZipFile(r'./new_data/snwflk_title_json.zip', 'r') as z:  
-    with z.open('snwflk_chunksplits.json') as f:  
+    with z.open('snwflk_title_json.json') as f:  
         input_data_title = json.load(f)
 
 #read text json
